@@ -12,9 +12,12 @@ const Navbar = ({ onMenuClick, toggleTheme, darkMode }) => {
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
+  console.log("Navbar darkMode:", darkMode);
+
   return (
     <AppBar position="fixed" color="inherit">
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        {/* Left side: Hamburger (mobile) and Logo */}
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           {!isMdUp && (
             <IconButton onClick={onMenuClick} sx={{ color: theme.palette.text.secondary, mr: 2 }}>
@@ -29,11 +32,12 @@ const Navbar = ({ onMenuClick, toggleTheme, darkMode }) => {
           </Typography>
         </Box>
 
+        {/* Middle: Search bar with conditional background */}
         <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
-            backgroundColor: '#f6f7f8',
+            backgroundColor: darkMode ? theme.palette.grey[800] : '#f6f7f8',
             borderRadius: 2,
             px: 2,
             py: 0.5,
@@ -44,16 +48,13 @@ const Navbar = ({ onMenuClick, toggleTheme, darkMode }) => {
           <InputBase
             placeholder="Search Furry Friends"
             inputProps={{ 'aria-label': 'search furry friends' }}
-            sx={{ width: '100%' }}
+            sx={{ width: '100%', color: theme.palette.text.primary }}
           />
         </Box>
 
+        {/* Right side: Theme toggle and User icon */}
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          {/* Theme toggle button with temporary red border for debugging */}
-          <IconButton
-            onClick={toggleTheme}
-            sx={{ color: theme.palette.text.secondary, mr: 2, border: '1px solid red' }}
-          >
+          <IconButton onClick={toggleTheme} sx={{ color: theme.palette.text.secondary, mr: 2 }}>
             {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
           <IconButton sx={{ color: theme.palette.text.secondary }}>

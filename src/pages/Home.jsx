@@ -1,37 +1,40 @@
-// Home.jsx
+// src/pages/Home.jsx
 import React, { useState } from 'react';
 import { Box, Drawer, useTheme, useMediaQuery } from '@mui/material';
 import Navbar from '../components/Navbar';
 import LeftSidebarDesktop from '../components/LeftSidebarDesktop';
-import LeftSidebar from '../components/LeftSidebar'; // Mobile version
+import LeftSidebar from '../components/LeftSidebar'; // Mobile version of left sidebar
 import RightSidebarDesktop from '../components/RightSidebarDesktop';
 import Feed from '../components/Feed';
 
-const Home = () => {
+const Home = ({ toggleTheme, darkMode }) => {
+  // State for mobile drawer open/close
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
-  const isMdUp = useMediaQuery(theme.breakpoints.up('md')); // For left sidebar
-  const isLgUp = useMediaQuery(theme.breakpoints.up('lg')); // For right sidebar
+
+  // Breakpoints for responsive rendering
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md')); // For desktop left sidebar
+  const isLgUp = useMediaQuery(theme.breakpoints.up('lg')); // For desktop right sidebar
 
   const handleDrawerToggle = () => {
-    setMobileOpen((prev) => !prev);
+    setMobileOpen(prev => !prev);
   };
 
   return (
-    <Box sx={{ backgroundColor: '#dae0e6', minHeight: '100vh' }}>
-      {/* Navbar with mobile menu button */}
-      <Navbar onMenuClick={handleDrawerToggle} />
+    <Box sx={{ backgroundColor: theme.palette.background.default, minHeight: '100vh' }}>
+      {/* Navbar receives the theme toggle props and menu toggle for mobile */}
+      <Navbar onMenuClick={handleDrawerToggle} toggleTheme={toggleTheme} darkMode={darkMode} />
 
-      {/* Always render desktop left sidebar with slide animation */}
-      <LeftSidebarDesktop in={isMdUp} />
+      {/* Desktop Left Sidebar with slide animation */}
+      {isMdUp && <LeftSidebarDesktop in={isMdUp} />}
 
-      {/* Mobile Drawer for left sidebar */}
+      {/* Mobile Left Sidebar in a Drawer */}
       {!isMdUp && (
         <Drawer
           anchor="left"
           open={mobileOpen}
           onClose={handleDrawerToggle}
-          ModalProps={{ keepMounted: true }}
+          ModalProps={{ keepMounted: true }} // Improves mobile performance
         >
           <LeftSidebar mobile />
         </Drawer>
@@ -43,7 +46,7 @@ const Home = () => {
           component="main"
           sx={{
             flex: 1,
-            marginLeft: { xs: 0, md: '240px' }, // leave space for left sidebar on desktop
+            marginLeft: { xs: 0, md: '240px' }, // Reserve space for left sidebar on desktop
             padding: 2,
             maxWidth: '800px',
           }}
@@ -51,7 +54,7 @@ const Home = () => {
           <Feed />
         </Box>
 
-        {/* Render desktop right sidebar with slide animation on large screens */}
+        {/* Desktop Right Sidebar with slide animation */}
         {isLgUp && <RightSidebarDesktop in={isLgUp} />}
       </Box>
     </Box>

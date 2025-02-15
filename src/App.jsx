@@ -8,7 +8,11 @@ import { lightTheme, darkTheme } from './theme';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
-  const toggleTheme = () => setDarkMode((prev) => !prev);
+  
+  const toggleTheme = () => {
+    console.log("Theme toggled");
+    setDarkMode((prev) => !prev);
+  };
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>

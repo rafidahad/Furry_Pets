@@ -1,24 +1,28 @@
-// LeftSidebarDesktop.jsx
+// LeftSidebarDesktop.jsx (Desktop Sidebar)
 import React from 'react';
 import { Box, List, ListItemButton, ListItemText, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import Slide from '@mui/material/Slide';
 
 const LeftSidebarDesktop = ({ in: inProp }) => {
+  const theme = useTheme();
+
   const sidebarContent = (
     <Box
       sx={{
         position: 'fixed',
-        top: '64px', // adjust based on your Navbar height
+        top: '64px', // Adjust based on your Navbar height
         left: 0,
         width: '240px',
         height: 'calc(100% - 64px)',
-        backgroundColor: '#ffffff',
-        borderRight: '1px solid #edeff1',
+        backgroundColor: theme.palette.background.paper, // use theme color
+        borderRight: `1px solid ${theme.palette.divider}`, // use theme's divider
         overflowY: 'auto',
+        color: theme.palette.text.primary, // ensure text matches dark/light mode
       }}
     >
       <List>
-        <Typography sx={{ p: 2, fontWeight: 'bold', color: '#878a8c' }}>
+        <Typography sx={{ p: 2, fontWeight: 'bold' }}>
           Menu
         </Typography>
         <ListItemButton>
@@ -33,19 +37,12 @@ const LeftSidebarDesktop = ({ in: inProp }) => {
         <ListItemButton>
           <ListItemText primary="My Groups" />
         </ListItemButton>
-        {/* Add more menu items as needed */}
       </List>
     </Box>
   );
 
   return (
-    <Slide
-      direction="right"
-      in={inProp}
-      mountOnEnter
-      unmountOnExit
-      timeout={300} // adjust duration as desired
-    >
+    <Slide direction="right" in={inProp} mountOnEnter unmountOnExit timeout={300}>
       {sidebarContent}
     </Slide>
   );
