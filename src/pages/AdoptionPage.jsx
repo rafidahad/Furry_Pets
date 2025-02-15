@@ -2,47 +2,56 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar"; // Updated MUI Navbar
+import { Box } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import Navbar from "../components/Navbar"; // Your updated MUI Navbar
+
+import Adoption2 from "../Assets/adoptionMe.png";
+import Adoption3 from "../Assets/adoption.png";
 
 const AdoptionPage = () => {
   const navigate = useNavigate();
+  const theme = useTheme();    // Access MUI theme (for dark mode)
   const [selectedOption, setSelectedOption] = useState(null);
 
-  const handleSelect = (option) => {
-    setSelectedOption(option);
-    console.log("Selected option:", option);
-  };
-
+  // Updated: Navigate to "/adopt_a_pet" when the button is clicked.
   const handleFindPetClick = () => {
-    // Navigate to the pet browsing page (adjust route as needed)
-    navigate("/pet");
+    navigate("/adopt_a_pet");
   };
 
   const handleSubmitPetClick = () => {
-    // Navigate after submitting (adjust route as needed)
     navigate("/home");
   };
 
   return (
     <>
-      {/* Updated Navbar with showSearch set to false */}
+      {/* Navbar: search bar hidden */}
       <Navbar showSearch={false} />
-      
-      <div className="container py-5 mt-4">
-        <div className="row">
-          {/* Left Column: Adopt a Pet */}
-          <div className="col-md-6">
-            <div className="p-4 border rounded shadow">
+
+      {/* MUI Box to apply theme's background & text color */}
+      <Box
+        sx={{
+          minHeight: "100vh",
+          backgroundColor: theme.palette.background.default,
+          color: theme.palette.text.primary,
+          pt: "80px", // Offset for fixed navbar (adjust as needed)
+        }}
+      >
+        <div className="container py-5">
+          <div className="row">
+            {/* Left Column: Adopt a Pet */}
+            <div
+              className="col-md-6 p-4 border rounded shadow"
+              style={{
+                backgroundColor: theme.palette.background.paper,
+                color: theme.palette.text.primary,
+                borderColor: theme.palette.divider,
+              }}
+            >
               <h2 className="text-primary fw-bold text-center">Adopt a Pet</h2>
               <div className="d-flex justify-content-center my-3">
                 <img
-                  src="Adoptpet1.png"
-                  alt="Adopt a Pet"
-                  className="img-fluid mx-2"
-                  width="200"
-                />
-                <img
-                  src="Adoptpet2.png"
+                  src={Adoption2}
                   alt="Adopt a Pet"
                   className="img-fluid mx-2"
                   width="200"
@@ -78,17 +87,22 @@ const AdoptionPage = () => {
                 </button>
               </div>
             </div>
-          </div>
 
-          {/* Right Column: Post a Pet for Adoption */}
-          <div className="col-md-6">
-            <div className="p-4 border rounded shadow">
+            {/* Right Column: Post a Pet for Adoption */}
+            <div
+              className="col-md-6 p-4 border rounded shadow"
+              style={{
+                backgroundColor: theme.palette.background.paper,
+                color: theme.palette.text.primary,
+                borderColor: theme.palette.divider,
+              }}
+            >
               <h2 className="text-primary fw-bold text-center">
                 Post a Pet for Adoption
               </h2>
               <div className="d-flex justify-content-center my-3">
                 <img
-                  src="Postpet1.png"
+                  src={Adoption3}
                   alt="Post a Pet"
                   className="img-fluid mx-2"
                   width="300"
@@ -182,7 +196,7 @@ const AdoptionPage = () => {
             </div>
           </div>
         </div>
-      </div>
+      </Box>
     </>
   );
 };

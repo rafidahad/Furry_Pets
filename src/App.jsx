@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Signup from './pages/SignUp';
 import AdoptionPage from './pages/AdoptionPage'; //
 import Popular from './pages/Popular';
+import AdoptAPetPage from './pages/AdoptAPetPage';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/home" element={<Home toggleTheme={toggleTheme} darkMode={darkMode} />} />
           <Route path="/adoption" element={<AdoptionPage />} />
           <Route path="/popular" element={<Popular />} />
+          <Route path="/adopt_a_pet" element={<AdoptAPetPage />} />
         </Routes>
       </Router>
     </ThemeProvider>

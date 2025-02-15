@@ -9,12 +9,18 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import HomeIcon from '@mui/icons-material/Home';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'; // Logout icon
 import furryLogo from '../assets/furryFriends_header_logo.png';
 
 const Navbar = ({ onMenuClick, toggleTheme, darkMode, showSearch = true }) => {
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Implement any logout logic here (e.g., clearing tokens)
+    navigate("/"); // Redirect to home route
+  };
 
   return (
     <AppBar position="fixed" color="inherit">
@@ -65,13 +71,16 @@ const Navbar = ({ onMenuClick, toggleTheme, darkMode, showSearch = true }) => {
             </Typography>
           </Box>
         )}
-        {/* Right: Theme toggle and User icon */}
+        {/* Right: Theme toggle, Account icon, and Logout */}
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <IconButton onClick={toggleTheme} sx={{ color: theme.palette.text.secondary, mr: 2 }}>
             {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
-          <IconButton sx={{ color: theme.palette.text.secondary }}>
+          <IconButton sx={{ color: theme.palette.text.secondary, mr: 2 }}>
             <AccountCircle />
+          </IconButton>
+          <IconButton onClick={handleLogout} sx={{ color: theme.palette.text.secondary }}>
+            <ExitToAppIcon />
           </IconButton>
         </Box>
       </Toolbar>
