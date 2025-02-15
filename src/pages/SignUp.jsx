@@ -4,18 +4,27 @@ import './LoginSignUp.css';
 import user_icon from '../Assets/person.png';
 import email_icon from '../Assets/email.png';
 import password_icon from '../Assets/password.png';
+import LoadingScreen from './LoadingScreen';
 
 function Signup () {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleSignup = () => {
-        if (name && email && password) {
-            navigate('/');
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSignup = (e) => {
+        e.preventDefault();
+        if (formData.name && formData.email && formData.password) {
+            setLoading(true);
+            setTimeout(() => navigate('/'), 2000);
         }
     };
+
+    if (loading) return <LoadingScreen />;
 
     return (
         <div className='container'>
@@ -23,32 +32,27 @@ function Signup () {
                 <div className="text">Sign Up</div>
                 <div className="underline"></div>
             </div>
-            <div className="inputs">
+            <form onSubmit={handleSignup} className="inputs">
                 <div className="input">
                     <img src={user_icon} alt="" />
-                    <input type="text" placeholder="Enter Name" value={name} onChange={(e) => setName(e.target.value)} />
+                    <input type="text" name="name" placeholder="Enter Name" value={formData.name} onChange={handleChange} />
                 </div>
                 <div className="input">
                     <img src={email_icon} alt="" />
-                    <input type="email" placeholder="Enter E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input type="email" name="email" placeholder="Enter E-mail" value={formData.email} onChange={handleChange} />
                 </div>
                 <div className="input">
                     <img src={password_icon} alt="" />
-                    <input type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <input type="password" name="password" placeholder="Enter Password" value={formData.password} onChange={handleChange} />
                 </div>
-            </div>
-            <div className="submit-container">
-            <div 
-                    className={`submit ${email && password ? "active" : "gray"}`} 
-                    onClick={handleSignup}
-                    style={{ backgroundColor: email && password ? "#28a745" : "#ccc" }}
-                >
-                    Login
+                <div className="submit-container">
+                <button type="submit" className={`submit ${formData.email && formData.password ? "active" : "gray"}`}>Sign Up</button>
+                    <Link to="/" className="submit">Login</Link>
                 </div>
-                <Link to="/" className="submit">Login</Link>
-            </div>
+            </form>
         </div>
     );
 };
+
 
 export default Signup;
