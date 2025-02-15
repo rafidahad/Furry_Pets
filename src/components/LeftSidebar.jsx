@@ -13,10 +13,11 @@ import {
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
 
-// Import icons (feel free to adjust these)
+// Import icons (feel free to adjust which icon is used for each item)
 import HomeIcon from '@mui/icons-material/Home';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import PetsIcon from '@mui/icons-material/Pets';
+import GroupIcon from '@mui/icons-material/Group';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
@@ -76,24 +77,24 @@ const LeftSidebar = () => {
         </ListItemButton>
         <Collapse in={openPetTopics} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            {[
-              "Dogs",
-              "Cats",
-              "Fish",
-              "Birds",
-              "Rabbits",
-              "Hamsters",
-              "Guinea Pigs",
-              "Reptiles",
-              "Ferrets",
-            ].map((topic) => (
-              <ListItemButton key={topic} sx={{ pl: 4 }}>
-                <ListItemIcon>
-                  <PetsIcon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary={topic} />
-              </ListItemButton>
-            ))}
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <PetsIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText primary="Dogs" />
+            </ListItemButton>
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <PetsIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText primary="Cats" />
+            </ListItemButton>
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <PetsIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText primary="Birds" />
+            </ListItemButton>
           </List>
         </Collapse>
         <Divider />

@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import { lightTheme, darkTheme } from './theme';
 import Login from './pages/Login';
 import Signup from './pages/SignUp';
+import AdoptionPage from './pages/AdoptionPage'; //
+import Popular from './pages/Popular';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -24,6 +26,8 @@ const App = () => {
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/home" element={<Home toggleTheme={toggleTheme} darkMode={darkMode} />} />
+          <Route path="/adoption" element={<AdoptionPage />} />
+          <Route path="/popular" element={<Popular />} />
         </Routes>
       </Router>
     </ThemeProvider>

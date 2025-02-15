@@ -1,4 +1,4 @@
-// RightSidebarDesktop.jsx (Desktop Sidebar)
+// src/components/RightSidebarDesktop.jsx (Desktop Version)
 import React from 'react';
 import { Box, Typography, Card, CardContent, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -11,15 +11,15 @@ const RightSidebarDesktop = ({ in: inProp }) => {
     <Box
       sx={{
         position: 'fixed',
-        top: '64px', // adjust based on your Navbar height
+        top: '64px', // adjust according to your Navbar height
         right: 0,
         width: '300px',
         height: 'calc(100% - 64px)',
-        backgroundColor: theme.palette.background.paper, // use theme color
-        borderLeft: `1px solid ${theme.palette.divider}`, // use theme's divider
+        backgroundColor: theme.palette.background.paper,
+        borderLeft: `1px solid ${theme.palette.divider}`,
         overflowY: 'auto',
         p: 2,
-        color: theme.palette.text.primary, // ensure text color is correct
+        color: theme.palette.text.primary,
       }}
     >
       <Card sx={{ mb: 2 }}>
@@ -37,7 +37,6 @@ const RightSidebarDesktop = ({ in: inProp }) => {
           </Button>
         </CardContent>
       </Card>
-
       <Card>
         <CardContent>
           <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
@@ -56,7 +55,9 @@ const RightSidebarDesktop = ({ in: inProp }) => {
 
   return (
     <Slide direction="left" in={inProp} mountOnEnter unmountOnExit timeout={300}>
-      {sidebarContent}
+      <Box sx={{ position: 'fixed', top: '64px', right: 0, zIndex: 1200 }}>
+        {sidebarContent}
+      </Box>
     </Slide>
   );
 };

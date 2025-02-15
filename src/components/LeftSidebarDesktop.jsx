@@ -1,4 +1,4 @@
-// src/components/LeftSidebarDesktop.jsx
+// src/components/LeftSidebarDesktop.jsx (Desktop Version)
 import React, { useState } from 'react';
 import {
   Box,
@@ -10,11 +10,12 @@ import {
   Divider,
   ListItemIcon,
 } from '@mui/material';
+import { Link } from 'react-router-dom'; // Import Link for routing
 import { useTheme } from '@mui/material/styles';
 import Slide from '@mui/material/Slide';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
-// Import icons
+// Import icons (same as before)
 import HomeIcon from '@mui/icons-material/Home';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import PetsIcon from '@mui/icons-material/Pets';
@@ -66,19 +67,17 @@ const LeftSidebarDesktop = ({ in: inProp }) => {
           scrollbarWidth: 'auto',
         },
       }}
-      onMouseEnter={() => {}}
-      onMouseLeave={() => {}}
     >
       <List>
         {/* Segment 1: General */}
         <ListSubheader>General</ListSubheader>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/home">
           <ListItemIcon>
             <HomeIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/popular">
           <ListItemIcon>
             <WhatshotIcon fontSize="small" />
           </ListItemIcon>
@@ -120,7 +119,7 @@ const LeftSidebarDesktop = ({ in: inProp }) => {
 
         {/* Segment 3: Services */}
         <ListSubheader>Services</ListSubheader>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/adoption">
           <ListItemIcon>
             <FavoriteBorderIcon fontSize="small" />
           </ListItemIcon>
@@ -203,17 +202,9 @@ const LeftSidebarDesktop = ({ in: inProp }) => {
     </Box>
   );
 
-  // Wrap the sidebarContent in a Slide that always shows (you can remove the hover-based logic if desired)
   return (
-    <Slide direction="right" in={true} mountOnEnter unmountOnExit timeout={300}>
-      <Box
-        sx={{
-          position: 'fixed',
-          top: '64px',
-          left: 0,
-          zIndex: 1200,
-        }}
-      >
+    <Slide direction="right" in={inProp} mountOnEnter unmountOnExit timeout={300}>
+      <Box sx={{ position: 'fixed', top: '64px', left: 0, zIndex: 1200 }}>
         {sidebarContent}
       </Box>
     </Slide>
