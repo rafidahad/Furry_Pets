@@ -1,6 +1,6 @@
 // src/components/Navbar.jsx
 import React from 'react';
-import { AppBar, Toolbar, Typography, Box, IconButton, InputBase, useMediaQuery } from '@mui/material';
+import { AppBar, Toolbar, Box, IconButton, InputBase, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -8,11 +8,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 
+// Import your logo image:
+import furryLogo from '../assets/furryFriends_header_logo.png';
+
 const Navbar = ({ onMenuClick, toggleTheme, darkMode }) => {
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
-
-  console.log("Navbar darkMode:", darkMode);
 
   return (
     <AppBar position="fixed" color="inherit">
@@ -24,15 +25,15 @@ const Navbar = ({ onMenuClick, toggleTheme, darkMode }) => {
               <MenuIcon />
             </IconButton>
           )}
-          <Typography
-            variant="h6"
-            sx={{ cursor: 'pointer', fontWeight: 'bold', color: theme.palette.primary.main }}
-          >
-            Furry Friends
-          </Typography>
+          {/* Replace text with logo */}
+          <Box component="img"
+            src={furryLogo}
+            alt="Furry Friends Logo"
+            sx={{ height: 60, width: 'auto', cursor: 'pointer' }}
+          />
         </Box>
 
-        {/* Middle: Search bar with conditional background */}
+        {/* Middle: Search bar */}
         <Box
           sx={{
             display: 'flex',
