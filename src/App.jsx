@@ -5,6 +5,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Home from './pages/Home';
 import { lightTheme, darkTheme } from './theme';
+import Login from './pages/Login';
+import Signup from './pages/SignUp';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -19,7 +21,9 @@ const App = () => {
       <CssBaseline />
       <Router>
         <Routes>
-          <Route path="/" element={<Home toggleTheme={toggleTheme} darkMode={darkMode} />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/home" element={<Home toggleTheme={toggleTheme} darkMode={darkMode} />} />
         </Routes>
       </Router>
     </ThemeProvider>
