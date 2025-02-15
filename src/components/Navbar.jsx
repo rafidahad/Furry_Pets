@@ -76,7 +76,11 @@ const Navbar = ({ onMenuClick, toggleTheme, darkMode, showSearch = true }) => {
           <IconButton onClick={toggleTheme} sx={{ color: theme.palette.text.secondary, mr: 2 }}>
             {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
-          <IconButton sx={{ color: theme.palette.text.secondary, mr: 2 }}>
+          {/* Navigate to myprofile when AccountCircle is clicked */}
+          <IconButton
+            sx={{ color: theme.palette.text.secondary, mr: 2 }}
+            onClick={() => navigate("/myprofile")}
+          >
             <AccountCircle />
           </IconButton>
           <IconButton onClick={handleLogout} sx={{ color: theme.palette.text.secondary }}>
