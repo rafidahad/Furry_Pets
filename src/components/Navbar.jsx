@@ -1,31 +1,34 @@
-// Navbar.jsx
+// src/components/Navbar.jsx
 import React from 'react';
 import { AppBar, Toolbar, Typography, Box, IconButton, InputBase, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 
-const Navbar = ({ onMenuClick }) => {
+const Navbar = ({ onMenuClick, toggleTheme, darkMode }) => {
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
-    <AppBar position="fixed" sx={{ backgroundColor: '#ffffff', color: '#000000' }}>
+    <AppBar position="fixed" color="inherit">
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          {/* Show the menu button on small screens */}
           {!isMdUp && (
-            <IconButton onClick={onMenuClick} sx={{ color: '#878a8c', mr: 2 }}>
+            <IconButton onClick={onMenuClick} sx={{ color: theme.palette.text.secondary, mr: 2 }}>
               <MenuIcon />
             </IconButton>
           )}
-          <Typography variant="h6" component="div" sx={{ cursor: 'pointer', fontWeight: 'bold' }}>
+          <Typography
+            variant="h6"
+            sx={{ cursor: 'pointer', fontWeight: 'bold', color: theme.palette.primary.main }}
+          >
             Furry Friends
           </Typography>
         </Box>
 
-        {/* Middle Section: Search Bar */}
         <Box
           sx={{
             display: 'flex',
@@ -37,7 +40,7 @@ const Navbar = ({ onMenuClick }) => {
             width: '40%',
           }}
         >
-          <SearchIcon sx={{ color: '#878a8c', marginRight: 1 }} />
+          <SearchIcon sx={{ color: theme.palette.text.secondary, mr: 1 }} />
           <InputBase
             placeholder="Search Furry Friends"
             inputProps={{ 'aria-label': 'search furry friends' }}
@@ -45,9 +48,15 @@ const Navbar = ({ onMenuClick }) => {
           />
         </Box>
 
-        {/* Right Section: Icons */}
-        <Box>
-          <IconButton sx={{ color: '#878a8c' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          {/* Theme toggle button with temporary red border for debugging */}
+          <IconButton
+            onClick={toggleTheme}
+            sx={{ color: theme.palette.text.secondary, mr: 2, border: '1px solid red' }}
+          >
+            {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
+          <IconButton sx={{ color: theme.palette.text.secondary }}>
             <AccountCircle />
           </IconButton>
         </Box>
