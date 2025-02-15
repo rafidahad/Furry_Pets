@@ -1,4 +1,4 @@
-// LeftSidebarDesktop.jsx (Desktop Sidebar)
+// src/components/LeftSidebarDesktop.jsx
 import React, { useState } from 'react';
 import {
   Box,
@@ -14,7 +14,7 @@ import { useTheme } from '@mui/material/styles';
 import Slide from '@mui/material/Slide';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
-// Import icons (the same as in the mobile version)
+// Import icons
 import HomeIcon from '@mui/icons-material/Home';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import PetsIcon from '@mui/icons-material/Pets';
@@ -42,16 +42,32 @@ const LeftSidebarDesktop = ({ in: inProp }) => {
   const sidebarContent = (
     <Box
       sx={{
-        position: 'fixed',
-        top: '64px', // Adjust based on your Navbar height
-        left: 0,
         width: '240px',
-        height: 'calc(100% - 64px)',
+        height: 'calc(100vh - 64px)', // assuming Navbar height = 64px
         backgroundColor: theme.palette.background.paper,
         borderRight: `1px solid ${theme.palette.divider}`,
         overflowY: 'auto',
         color: theme.palette.text.primary,
+        // Hide scrollbar by default
+        '&::-webkit-scrollbar': {
+          width: '0px',
+        },
+        // On hover, show scrollbar (for WebKit browsers)
+        '&:hover::-webkit-scrollbar': {
+          width: '8px',
+        },
+        '&:hover::-webkit-scrollbar-thumb': {
+          backgroundColor: theme.palette.divider,
+          borderRadius: '4px',
+        },
+        // For Firefox (scrollbar-width)
+        scrollbarWidth: 'none',
+        '&:hover': {
+          scrollbarWidth: 'auto',
+        },
       }}
+      onMouseEnter={() => {}}
+      onMouseLeave={() => {}}
     >
       <List>
         {/* Segment 1: General */}
@@ -81,15 +97,15 @@ const LeftSidebarDesktop = ({ in: inProp }) => {
         <Collapse in={openPetTopics} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {[
-              "Dogs",
-              "Cats",
-              "Fish",
-              "Birds",
-              "Rabbits",
-              "Hamsters",
-              "Guinea Pigs",
-              "Reptiles",
-              "Ferrets",
+              'Dogs',
+              'Cats',
+              'Fish',
+              'Birds',
+              'Rabbits',
+              'Hamsters',
+              'Guinea Pigs',
+              'Reptiles',
+              'Ferrets',
             ].map((topic) => (
               <ListItemButton key={topic} sx={{ pl: 4 }}>
                 <ListItemIcon>
@@ -143,7 +159,7 @@ const LeftSidebarDesktop = ({ in: inProp }) => {
         <Divider />
 
         {/* Segment 4: About & Policy */}
-        <ListSubheader>About &amp; Policy</ListSubheader>
+        <ListSubheader>About & Policy</ListSubheader>
         <ListItemButton>
           <ListItemIcon>
             <InfoIcon fontSize="small" />
@@ -187,9 +203,19 @@ const LeftSidebarDesktop = ({ in: inProp }) => {
     </Box>
   );
 
+  // Wrap the sidebarContent in a Slide that always shows (you can remove the hover-based logic if desired)
   return (
-    <Slide direction="right" in={inProp} mountOnEnter unmountOnExit timeout={300}>
-      {sidebarContent}
+    <Slide direction="right" in={true} mountOnEnter unmountOnExit timeout={300}>
+      <Box
+        sx={{
+          position: 'fixed',
+          top: '64px',
+          left: 0,
+          zIndex: 1200,
+        }}
+      >
+        {sidebarContent}
+      </Box>
     </Slide>
   );
 };

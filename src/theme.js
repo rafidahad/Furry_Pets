@@ -10,7 +10,9 @@ export const lightTheme = createTheme({
     text: { primary: "#333333", secondary: "#666666" },
   },
   typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    // Use Futura font across your site. Make sure Futura is available,
+    // or include a fallback chain.
+    fontFamily: '"Futura", "Roboto", "Helvetica", "Arial", sans-serif',
     h6: { fontWeight: 600 },
   },
   components: {
@@ -51,7 +53,8 @@ export const darkTheme = createTheme({
     text: { primary: "#ffffff", secondary: "#b0bec5" },
   },
   typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    // Use Futura font across your site
+    fontFamily: '"Futura", "Roboto", "Helvetica", "Arial", sans-serif',
     h6: { fontWeight: 600 },
   },
   components: {
