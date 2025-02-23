@@ -1,5 +1,5 @@
-// src/pages/Login.jsx
 import React, { useState } from 'react';
+import { useFormik } from 'formik';
 import { useNavigate, Link } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/material';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,24 +8,32 @@ import email_icon from '../Assets/email.png';
 import password_icon from '../Assets/password.png';
 import LoadingScreen from './LoadingScreen';
 import furryLogo from '../assets/furryFriends_header_logo.png';
+import * as Yup from 'yup';
 
 function Login() {
-  const [formData, setFormData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (formData.email && formData.password) {
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email('Invalid email address').required('Required'),
+      password: Yup.string()
+        .required('No password provided.')
+        .min(8, 'Password is too short - should be 8 chars minimum.')
+        .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
+    }),
+    onSubmit: values => {
       setLoading(true);
-      setTimeout(() => navigate('/home'), 2000);
-    }
-  };
+      setTimeout(() => {
+        setLoading(false);
+        navigate('/home');
+      }, 2000);
+    },
+  });
 
   if (loading) return <LoadingScreen />;
 
@@ -62,7 +70,7 @@ function Login() {
             }}
           ></div>
         </div>
-        <form onSubmit={handleLogin} className="inputs">
+        <form onSubmit={formik.handleSubmit} className="inputs">
           <div className="input mb-3 d-flex align-items-center">
             <img
               src={email_icon}
@@ -73,12 +81,16 @@ function Login() {
               type="email"
               name="email"
               placeholder="Enter E-mail"
-              value={formData.email}
-              onChange={handleChange}
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               className="form-control"
               style={{ borderRadius: '4px' }}
             />
           </div>
+          {formik.touched.email && formik.errors.email ? (
+            <div style={{ color: 'red' }}>{formik.errors.email}</div>
+          ) : null}
           <div className="input mb-3 d-flex align-items-center">
             <img
               src={password_icon}
@@ -89,15 +101,19 @@ function Login() {
               type="password"
               name="password"
               placeholder="Enter Password"
-              value={formData.password}
-              onChange={handleChange}
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               className="form-control"
               style={{ borderRadius: '4px' }}
             />
           </div>
+          {formik.touched.password && formik.errors.password ? (
+            <div style={{ color: 'red' }}>{formik.errors.password}</div>
+          ) : null}
           <div className="forgot-password mb-3">
             <Typography variant="body2">
-              Lost Password?{" "}
+              Lost Password?{' '}
               <span
                 style={{
                   textDecoration: 'underline',
@@ -125,7 +141,7 @@ function Login() {
             </Link>
             <Button
               type="submit"
-              variant="contained"
+              className="btn-custom btn-login"
               sx={{
                 background: 'linear-gradient(45deg, #4a90e2 30%, #50b3ff 90%)',
                 color: 'white',
